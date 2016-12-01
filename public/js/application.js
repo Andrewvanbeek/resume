@@ -1,7 +1,36 @@
 $(document).ready(function() {
-  // This is called after the document has loaded in its entirety
-  // This guarantees that any elements we bind to will exist on the page
-  // when we try to bind to them
-
-  // See: http://docs.jquery.com/Tutorials:Introducing_$(document).ready()
+  $("#positions").on("submit", function(e){
+    e.preventDefault();
+    function handleGetCurrentPosition(location){
+      var url = $("#positions").attr("action")
+      var latitude = location.coords.latitude;
+      var longitude = location.coords.longitude;
+      var comment = $("textarea[name='comment']").val()
+      var title = $("input[name='title']").val()
+      console.log(url)
+      console.log(comment)
+      var position = {title: title, latitude: latitude, longitude: longitude, comment}
+      $.ajax({
+        url: url,
+        type: 'POST',
+        data: position,
+      })
+      .done(function() {
+        console.log("success");
+      })
+    }
+    var spot = navigator.geolocation.getCurrentPosition(handleGetCurrentPosition)
+  })
 });
+
+
+
+
+
+
+
+
+
+
+
+
