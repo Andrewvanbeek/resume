@@ -9,6 +9,7 @@ gem 'sinatra-contrib'
 
 # Use Thin for our web server
 gem 'thin'
+gem 'phaser-rails'
 
 gem 'activesupport', '~>4.1'
 gem 'activerecord', '~>4.1'
