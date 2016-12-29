@@ -9,16 +9,19 @@
   <br><br><br><br>
 <script type="text/javascript">
 
-var game = new Phaser.Game(1000, 400, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
+var game = new Phaser.Game(1500, 400, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
 
     game.load.image('sky', 'sky.png');
     game.load.image('star', 'star.png');
-    game.load.image('since', 'since.png')
+    game.load.image('since', 'SINCE.png')
     game.load.spritesheet('dude', 'dude.png', 32, 48);
     game.load.image('sincesecond', 'sincesecond.png')
     game.load.image('ground', 'platform.png');
+    game.load.image('rubysprite', 'rubysprite.png')
+    game.load.image('hit', 'hit.png')
+    game.load.image('blocka', 'blocka.png')
 
 }
 
@@ -34,12 +37,48 @@ function create() {
     platforms = game.add.group();
     platforms.enableBody = true;
      var ground = platforms.create(0, game.world.height - 64, 'ground');
-    ground.scale.setTo(2, 2);
+    ground.scale.setTo(5000, 2);
     ground.body.immovable = true;
      player = game.add.sprite(32, game.world.height - 150, 'dude');
+    var ledge = platforms.create(750, 140, 'ground');
+    ledge.scale.setTo(0.75, 0.01)
+    ledge2 = platforms.create(370, 150, 'ground');
+    ledge2.scale.setTo(0.55, 0.001)
+    ledge.enableBody = true
+    ledge.body.immovable = true
+    ledge2.enableBody = true
+    ledge2.body.immovable = true
+    ledge3 = platforms.create(370, 70, 'ground');
+    ledge3.scale.setTo(0.55, 0.001)
+    ledge3.enableBody = true
+    ledge3.body.immovable = true
+    ledge4 = platforms.create(840, 60, 'ground')
+    ledge4.scale.setTo(0.35, 0.01)
+    ledge4.enableBody = true
+    ledge4.body.immovable = true
+    ledge5 = platforms.create(1130, 85, 'ground')
+    ledge5.scale.setTo(1, 0.001)
+    ledge5.enableBody = true
+    ledge5.body.immovable = true
+    hit = game.add.sprite(1580, 0, 'hit')
+    hit.scale.setTo(0.675, 0.675)
+    ledge6 = platforms.create(2285, 0, 'ground')
+    ledge6.scale.setTo(0.45, 3.5)
+    ledge6.enableBody = true
+    ledge6.body.immovable = true
+    ledge7 = platforms.create(2285, 225, 'blocka')
+    ledge7.scale.setTo(0.45, 3.5)
+    ledge7.enableBody = true
+    ledge7.body.immovable = true
+
+    ledge8 = platforms.create(2285, 225, 'blocka')
+    ledge8.scale.setTo(2, 0.01)
+    ledge8.enableBody = true
+    ledge8.body.immovable = true
+    game.physics.arcade.enable(hit)
     game.physics.arcade.enable(player);
-    player.body.bounce.y = 0.9;
-    player.body.gravity.y = 400;
+    player.body.bounce.y = 0.1;
+    player.body.gravity.y = 200;
     player.body.collideWorldBounds = true;
     player.animations.add('left', [0, 1, 2, 3], 10, true);
     player.animations.add('right', [5, 6, 7, 8], 10, true);
@@ -52,15 +91,16 @@ function create() {
 function update() {
 
     var hitPlatform = game.physics.arcade.collide(player, platforms);
+    var hitblock = game.physics.arcade.collide(player, hit)
  player.body.velocity.x = 0;
      if(cursors.left.isDown){
-        player.body.velocity.x = -150;
+        player.body.velocity.x = -550;
         player.animations.play('left');
      }
      else if (cursors.right.isDown)
     {
         //  Move to the right
-        player.body.velocity.x = 150;
+        player.body.velocity.x = 550;
 
         player.animations.play('right');
     }
