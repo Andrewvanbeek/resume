@@ -12,7 +12,6 @@
 var game = new Phaser.Game(1500, 400, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
 
 function preload() {
-
     game.load.image('sky', 'sky.png');
     game.load.image('star', 'star.png');
     game.load.image('since', 'SINCE.png')
@@ -22,6 +21,7 @@ function preload() {
     game.load.image('rubysprite', 'rubysprite.png')
     game.load.image('hit', 'hit.png')
     game.load.image('blocka', 'blocka.png')
+    game.load.image('swiftblock', 'swiftblock.png')
 
 }
 
@@ -72,9 +72,19 @@ function create() {
     ledge7.body.immovable = true
 
     ledge8 = platforms.create(2285, 225, 'blocka')
-    ledge8.scale.setTo(2, 0.01)
+    ledge8.scale.setTo(3.5, 0.01)
     ledge8.enableBody = true
     ledge8.body.immovable = true
+
+    ledge9 = platforms.create(2285, 100, 'ground')
+    ledge9.scale.setTo(4.5, 0.01)
+    ledge9.enableBody = true
+    ledge9.body.immovable = true
+    swiftblock = game.add.sprite(2300, 120, 'swiftblock')
+    swiftblock.scale.setTo(0.21, 0.21)
+    game.physics.arcade.enable(swiftblock);
+    swiftblock.body.gravity.y = 2;
+    swiftblock.body.collideWorldBounds = true
     game.physics.arcade.enable(hit)
     game.physics.arcade.enable(player);
     player.body.bounce.y = 0.1;
@@ -88,11 +98,21 @@ function create() {
 
 }
 
+
+
+
 function update() {
 
     var hitPlatform = game.physics.arcade.collide(player, platforms);
     var hitblock = game.physics.arcade.collide(player, hit)
+    var blockTouchDown = game.physics.arcade.collide(swiftblock, platforms, blocker, null, this)
+    var blockpush = game.physics.arcade.collide(player, swiftblock, blockpush, null, this)
  player.body.velocity.x = 0;
+   if (swiftblock.body.x > 4000) {
+            swiftblock.destroy()
+        }
+
+
      if(cursors.left.isDown){
         player.body.velocity.x = -550;
         player.animations.play('left');
@@ -116,7 +136,21 @@ function update() {
         player.body.velocity.y = -350;
     }
 
+    function blocker(obj1, obj2) {
+    swiftblock.body.gravity = 0
+    swiftblock.body.immovable = true
+}
 
+    function blockpush(obj1, obj2) {
+        game.physics.arcade.enable(swiftblock)
+        swiftblock.body.gravity.y = 200
+        if (cursors.right.isDown){
+            game.physics.arcade.collide(player, swiftblock)
+            swiftblock.body.immovable = false
+            swiftblock.body.velocity.x = 200
+        }
+
+    }
 
 
 }
