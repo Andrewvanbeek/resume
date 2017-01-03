@@ -40,19 +40,45 @@ function create() {
     platforms = game.add.group();
     platforms.enableBody = true;
 
-     emitter = game.add.emitter(4800, 120, 10000, true, true);
+     emitter = game.add.emitter(4200, 0, 10000, true, true);
     emitter.makeParticles('data');
-    emitter.width = 2000
+    emitter.width = 400
     emitter.minParticleScale = 0.1;
    emitter.maxParticleScale = 0.2;
-    emitter.minParticleSpeed.set(200, 200);
-    emitter.maxParticleSpeed.set(200, 200);
+    emitter.minParticleSpeed.set(0, 200);
+    emitter.maxParticleSpeed.set(0, 200);
 
     emitter.setRotation(0, 0);
     emitter.gravity = 0;
 
     game.physics.arcade.enable(emitter)
-     emitter.start(false, 2000, 500);
+     emitter.start(false, 2000, 10);
+       emitter2 = game.add.emitter(4600, 0, 10000, true, true);
+    emitter2.makeParticles('data');
+    emitter2.width = 400
+    emitter2.minParticleScale = 0.1;
+   emitter2.maxParticleScale = 0.2;
+    emitter2.minParticleSpeed.set(0, 200);
+    emitter2.maxParticleSpeed.set(0, 200);
+
+    emitter2.setRotation(0, 0);
+    emitter2.gravity = 0;
+     game.physics.arcade.enable(emitter2)
+     emitter2.start(false, 2000, 10);
+
+        emitter3 = game.add.emitter(5000, 0, 10000, true, true);
+    emitter3.makeParticles('data');
+    emitter3.width = 400
+    emitter3.minParticleScale = 0.1;
+   emitter3.maxParticleScale = 0.2;
+    emitter3.minParticleSpeed.set(0, 200);
+    emitter3.maxParticleSpeed.set(0, 200);
+
+    emitter3.setRotation(0, 0);
+    emitter3.gravity = 0;
+
+    game.physics.arcade.enable(emitter3)
+     emitter3.start(false, 2000, 10);
      var ground = platforms.create(0, game.world.height - 64, 'ground');
     ground.scale.setTo(5000, 2);
     ground.body.immovable = true;
@@ -209,6 +235,18 @@ function update() {
 
 }
 
+if(player.body.x > 4000 && player.body.x < 4500) {
+    emitter.on = false
+}
+
+else if(player.body.x > 4400 && player.body.x < 4800){
+    emitter.on = true
+    emitter2.on = false
+}
+
+else {
+    emitter2.on = true
+}
 
 
 }
