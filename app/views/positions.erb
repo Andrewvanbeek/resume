@@ -96,25 +96,31 @@ function create() {
     game.camera.follow(player);
 
     cursors = game.input.keyboard.createCursorKeys();
-    diamondbody = game.add.group();
-    diamondbody.enableBody = true;
-    line = diamondbody.create(770, 160, 'ground');
-    line.scale.setTo(0.7, 0.001)
-    line.body.collideWorldBounds = true
-    line.body.immovable = true
-    line = diamondbody.create(810, 190, 'ground');
+    line = platforms.create(805, 80, 'ground');
     line.scale.setTo(0.5, 0.001)
     line.body.collideWorldBounds = true
     line.body.immovable = true
-    line = diamondbody.create(835, 220, 'ground');
+    line = platforms.create(780, 110, 'ground');
+    line.scale.setTo(0.65, 0.001)
+    line.body.collideWorldBounds = true
+    line.body.immovable = true
+    line = platforms.create(770, 160, 'ground');
+    line.scale.setTo(0.7, 0.001)
+    line.body.collideWorldBounds = true
+    line.body.immovable = true
+    line = platforms.create(810, 190, 'ground');
+    line.scale.setTo(0.5, 0.001)
+    line.body.collideWorldBounds = true
+    line.body.immovable = true
+    line = platforms.create(835, 220, 'ground');
     line.scale.setTo(0.4, 0.001)
     line.body.collideWorldBounds = true
     line.body.immovable = true
-    line = diamondbody.create(865, 250, 'ground');
+    line = platforms.create(865, 250, 'ground');
     line.scale.setTo(0.25, 0.001)
     line.body.collideWorldBounds = true
     line.body.immovable = true
-    line = diamondbody.create(890, 280, 'ground');
+    line = platforms.create(890, 280, 'ground');
     line.scale.setTo(0.1, 0.001)
     line.body.collideWorldBounds = true
     line.body.immovable = true
@@ -130,7 +136,7 @@ function update() {
     var hitblock = game.physics.arcade.collide(player, hit)
     var blockTouchDown = game.physics.arcade.collide(swiftblock, platforms, blocker, null, this)
     var blockpush = game.physics.arcade.collide(player, swiftblock, blockpush, null, this)
-    var lineblock = game.physics.arcade.collide(player, diamondbody);
+    var lineblock = game.physics.arcade.collide(player, platforms);
  player.body.velocity.x = 0;
    if (swiftblock.body.x > 4000) {
             swiftblock.destroy()
