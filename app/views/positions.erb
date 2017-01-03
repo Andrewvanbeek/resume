@@ -22,7 +22,7 @@ function preload() {
     game.load.image('hit', 'hit.png')
     game.load.image('blocka', 'blocka.png')
     game.load.image('swiftblock', 'swiftblock.png')
-
+    game.load.image('blank', 'blank.png')
 }
 
 var card;
@@ -36,6 +36,7 @@ function create() {
     resume2 = game.add.sprite(5000, 0, 'sincesecond')
     platforms = game.add.group();
     platforms.enableBody = true;
+
      var ground = platforms.create(0, game.world.height - 64, 'ground');
     ground.scale.setTo(5000, 2);
     ground.body.immovable = true;
@@ -95,6 +96,28 @@ function create() {
     game.camera.follow(player);
 
     cursors = game.input.keyboard.createCursorKeys();
+    diamondbody = game.add.group();
+    diamondbody.enableBody = true;
+    line = diamondbody.create(770, 160, 'ground');
+    line.scale.setTo(0.7, 0.001)
+    line.body.collideWorldBounds = true
+    line.body.immovable = true
+    line = diamondbody.create(810, 190, 'ground');
+    line.scale.setTo(0.5, 0.001)
+    line.body.collideWorldBounds = true
+    line.body.immovable = true
+    line = diamondbody.create(835, 220, 'ground');
+    line.scale.setTo(0.4, 0.001)
+    line.body.collideWorldBounds = true
+    line.body.immovable = true
+    line = diamondbody.create(865, 250, 'ground');
+    line.scale.setTo(0.25, 0.001)
+    line.body.collideWorldBounds = true
+    line.body.immovable = true
+    line = diamondbody.create(890, 280, 'ground');
+    line.scale.setTo(0.1, 0.001)
+    line.body.collideWorldBounds = true
+    line.body.immovable = true
 
 }
 
@@ -107,6 +130,7 @@ function update() {
     var hitblock = game.physics.arcade.collide(player, hit)
     var blockTouchDown = game.physics.arcade.collide(swiftblock, platforms, blocker, null, this)
     var blockpush = game.physics.arcade.collide(player, swiftblock, blockpush, null, this)
+    var lineblock = game.physics.arcade.collide(player, diamondbody);
  player.body.velocity.x = 0;
    if (swiftblock.body.x > 4000) {
             swiftblock.destroy()
@@ -156,7 +180,7 @@ function update() {
 }
 
 function render() {
-
+game.debug.geom(line);
     // game.debug.cameraInfo(game.camera, 500, 32);
     // game.debug.spriteCoords(card, 32, 32);
 
