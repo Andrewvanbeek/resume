@@ -16,9 +16,9 @@ var game = new Phaser.Game(1500, 400, Phaser.CANVAS, 'phaser-example', { preload
 function preload() {
     game.load.image('sky', 'sky.png');
     game.load.image('star', 'star.png');
-    game.load.image('since', 'backgroundone.png')
+    game.load.image('since', 'backgroundonev2.png')
     game.load.spritesheet('dude', 'dude.png', 32, 48);
-    game.load.image('sincesecond', 'backgroundtwo.png')
+    game.load.image('sincesecond', 'backgroundtwov2.png')
     game.load.image('ground', 'platform.png');
     game.load.image('rubysprite', 'rubysprite.png')
     game.load.image('hit', 'hit.png')
@@ -167,6 +167,14 @@ function create() {
     line.body.collideWorldBounds = true
     line.body.immovable = true
 
+    line2 = game.add.sprite(6070, 170, 'ground');
+    line2.scale.setTo(01, 0.1)
+    game.physics.arcade.enable(line2)
+    line2.body.collideWorldBounds = true
+    line2.body.immovable = true
+
+
+
 
 
 }
@@ -178,11 +186,12 @@ function update() {
     var fireBallhit = game.physics.arcade.collide(player, emitter, particleBurst, null, this)
 
 
-    var hitPlatform = game.physics.arcade.collide(player, platforms);
+    var hitPlatform = game.physics.arcade.collide(player, platforms, nobounce, null, this);
     var hitblock = game.physics.arcade.collide(player, hit)
     var blockTouchDown = game.physics.arcade.collide(swiftblock, platforms, blocker, null, this)
     var blockpush = game.physics.arcade.collide(player, swiftblock, blockpush, null, this)
     var lineblock = game.physics.arcade.collide(player, platforms);
+    var bounce = game.physics.arcade.collide(player, line2, bouncing, null, this)
 
 
  player.body.velocity.x = 0;
@@ -209,7 +218,7 @@ function update() {
 
         player.frame = 4;
     }
-    if (cursors.up.isDown && player.body.touching.down && hitPlatform)
+    if (cursors.up.isDown && player.body.touching.down && hitPlatform || bounce)
     {
         player.body.velocity.y = -350;
     }
@@ -235,6 +244,15 @@ function update() {
 
 }
 
+    function bouncing(obj1, obj2){
+        console.log("this happens")
+        player.body.bounce.set(0.8);
+    }
+
+    function nobounce(obj1, obj2){
+        player.body.bounce.set(0.0)
+    }
+
 if(player.body.x > 4000 && player.body.x < 4500) {
     emitter.on = false
 }
@@ -244,8 +262,14 @@ else if(player.body.x > 4400 && player.body.x < 4800){
     emitter2.on = false
 }
 
-else {
+else if (player.body.x > 4700 && player.body.x < 5200) {
     emitter2.on = true
+    emitter3.on = false
+}
+
+else {
+emitter3.on = true
+
 }
 
 
