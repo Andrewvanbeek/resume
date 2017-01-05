@@ -33,7 +33,7 @@ var cursors;
 
 function create() {
 
-    game.world.setBounds(0, 0, 10000, 350);
+    game.world.setBounds(0, 0, 9500, 350);
     game.physics.startSystem(Phaser.Physics.ARCADE);
     resume = game.add.sprite(0, 0, 'since')
     resume2 = game.add.sprite(4400, 0, 'sincesecond')
@@ -168,11 +168,16 @@ function create() {
     line.body.immovable = true
 
     line2 = game.add.sprite(6070, 170, 'ground');
-    line2.scale.setTo(01, 0.1)
+    line2.scale.setTo(1.56, 0.1)
     game.physics.arcade.enable(line2)
     line2.body.collideWorldBounds = true
     line2.body.immovable = true
 
+    line3 = game.add.sprite(6780, 205, 'ground');
+    line3.scale.setTo(1.56, 0.001)
+    game.physics.arcade.enable(line3)
+    line3.body.collideWorldBounds = true
+    line3.body.immovable = true
 
 
 
@@ -192,7 +197,7 @@ function update() {
     var blockpush = game.physics.arcade.collide(player, swiftblock, blockpush, null, this)
     var lineblock = game.physics.arcade.collide(player, platforms);
     var bounce = game.physics.arcade.collide(player, line2, bouncing, null, this)
-
+    var bounce2 = game.physics.arcade.collide(player, line3, bouncing, null, this)
 
  player.body.velocity.x = 0;
    if (swiftblock.body.x > 4000) {
@@ -218,7 +223,7 @@ function update() {
 
         player.frame = 4;
     }
-    if (cursors.up.isDown && player.body.touching.down && hitPlatform || bounce)
+    if (cursors.up.isDown && player.body.touching.down && hitPlatform || bounce || bounce2)
     {
         player.body.velocity.y = -350;
     }
@@ -269,6 +274,17 @@ else if (player.body.x > 4700 && player.body.x < 5200) {
 
 else {
 emitter3.on = true
+
+}
+
+if(player.body.x > 8950){
+
+    game.world.setBounds(0, 0, 9400, 950);
+
+}
+
+if (player.body.x > 8000){
+    player.tint = 239900
 
 }
 
