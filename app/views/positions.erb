@@ -12,7 +12,8 @@ test
 <script type="text/javascript">
 
 var game = new Phaser.Game(1500, 400, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update, render: render });
-var datesplatforms;
+var elevator;
+var swiftblocka;
 
 function preload() {
     game.load.image('sky', 'sky.png');
@@ -32,6 +33,7 @@ function preload() {
     game.load.image('accenture', 'accenture.png')
     game.load.image('cloudsherpas', 'cloudsherpas.png')
     game.load.image('oracledates', 'oracledates.png')
+    game.load.image('elevatorstart', 'elevatorbegin.png')
 }
 
 var card;
@@ -195,6 +197,7 @@ function create() {
 
 
 function update() {
+    var x = 0
     var fireBallhit = game.physics.arcade.collide(player, emitter, particleBurst, null, this)
 
 
@@ -205,7 +208,28 @@ function update() {
     var lineblock = game.physics.arcade.collide(player, platforms);
     var bounce = game.physics.arcade.collide(player, line2, bouncing, null, this)
     var bounce2 = game.physics.arcade.collide(player, line3, bouncing, null, this)
+    if(player.body.x > 8950){
+    game.world.setBounds(0, 0, 9500, 2400);
+    oracleblurb = game.add.sprite(8000, 1000,'oracleblurb')
+    game.world.sendToBack(oracleblurb)
+    sherpasblurb = game.add.sprite(8000, 1600, 'cloudsherpas')
+    game.world.sendToBack(sherpasblurb)
+    accentureblurb = game.add.sprite(8000, 2200, 'accenture')
+    game.world.sendToBack(accentureblurb)
+    swiftblocka = game.add.sprite(8890, 1140, 'elevatorstart')
+    swiftblocka.scale.setTo(0.21, 0.21)
+    game.world.sendToBack(swiftblocka)
+    var oracledatesplatform = game.add.sprite(9025, 1200, 'oracledates');
+    oracledatesplatform.scale.setTo(1.4, 1.4)
+    game.world.sendToBack(oracledatesplatform)
 
+    var elevator = platforms.create(8000, 1200, 'ground')
+    elevator.scale.setTo(20, 0.001)
+    game.physics.arcade.enable(elevator)
+    elevator.body.collideWorldBounds = true
+
+}
+    var platformone = game.physics.arcade.collide(player, elevator)
 
  player.body.velocity.x = 0;
    if (swiftblock.body.x > 4000) {
@@ -262,17 +286,13 @@ function update() {
         player.body.bounce.set(0.8);
     }
 
-    function downwegooracle(obj1, obj2){
-        if (cursors.down.isDown){
 
-        }
-
-
-    }
 
     function nobounce(obj1, obj2){
         player.body.bounce.set(0.0)
     }
+
+
 
 if(player.body.x > 4000 && player.body.x < 4500) {
     emitter.on = false
@@ -293,22 +313,9 @@ emitter3.on = true
 
 }
 
-if(player.body.x > 8950){
-
-    game.world.setBounds(0, 0, 9500, 3000);
-    oracleblurb = game.add.sprite(8000, 1000,'oracleblurb')
-    sherpasblurb = game.add.sprite(8000, 1600, 'cloudsherpas')
-    accentureblurb = game.add.sprite(8000, 2200, 'accenture')
-    var oracledatesplatform = game.add.sprite(8950, 1200, 'oracledates');
-    game.physics.arcade.enable(oracledatesplatform)
-    oracledatesplatform.body.immovable = true;
-    oracledatesplatform.body.collideWorldBounds = true
-    var dates = game.physics.arcade.collide(player, oracledatesplatform, downwegooracle, null, this)
 
 
-}
-
-if (player.body.x > 8000 && cursors.down.isDown){
+if (player.body.x > 8000){
     player.tint = 239900
 
 }
