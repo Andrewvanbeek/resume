@@ -114,14 +114,16 @@ function create() {
     ledge5.body.immovable = true
     hit = game.add.sprite(1580, 0, 'hit')
     hit.scale.setTo(0.675, 0.675)
-    ledge6 = platforms.create(2285, 0, 'ground')
-    ledge6.scale.setTo(0.45, 3.5)
+    ledge6 = platforms.create(2285, 0, 'blocka')
+    ledge6.scale.setTo(0.2, 0.15)
     ledge6.enableBody = true
     ledge6.body.immovable = true
+    game.world.sendToBack(ledge6)
     ledge7 = platforms.create(2285, 225, 'blocka')
-    ledge7.scale.setTo(0.45, 3.5)
+    ledge7.scale.setTo(0.45, 0.15)
     ledge7.enableBody = true
     ledge7.body.immovable = true
+    game.world.sendToBack(ledge7)
 
     ledge8 = platforms.create(2285, 225, 'blocka')
     ledge8.scale.setTo(3.45, 0.01)
@@ -209,7 +211,7 @@ function update() {
     var bounce = game.physics.arcade.collide(player, line2, bouncing, null, this)
     var bounce2 = game.physics.arcade.collide(player, line3, bouncing, null, this)
     if(player.body.x > 8950){
-    game.world.setBounds(0, 0, 9500, 2400);
+    game.world.setBounds(0, 0, 9500, 3000);
     oracleblurb = game.add.sprite(8000, 1000,'oracleblurb')
     game.world.sendToBack(oracleblurb)
     sherpasblurb = game.add.sprite(8000, 1600, 'cloudsherpas')
