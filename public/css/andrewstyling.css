@@ -48,12 +48,12 @@ h2 {
   }
 
 
-  #item {
+/*  #item {
     width: 50%;
     height: 50%;
 
   }
-
+*/
   .carousel-caption {
   position: absolute;
   top: 20em;
@@ -64,8 +64,8 @@ h2 {
 .carousel-caption2 {
     position: absolute;
     color: white;
-    padding-top: 75px;
-    padding-left: 130px;
+    padding-top: 55px;
+    padding-left: 140px;
     font-size: 42px;
     z-index: 2;
 }
