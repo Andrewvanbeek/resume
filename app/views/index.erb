@@ -98,6 +98,7 @@ function preload() {
     game.load.image('cloudsherpas', 'cloudsherpas.png')
     game.load.image('oracledates', 'oracledates.png')
     game.load.image('elevatorstart', 'elevatorbegin.png')
+    game.load.image('level', 'blackbar.png')
 }
 
 var card;
@@ -152,8 +153,8 @@ function create() {
 
     game.physics.arcade.enable(emitter3)
      emitter3.start(false, 2000, 10);
-     var ground = platforms.create(0, game.world.height - 64, 'ground');
-    ground.scale.setTo(22, 2);
+     var ground = platforms.create(0, game.world.height - 64, 'level');
+    ground.scale.setTo(2.2, 0.5);
     ground.body.immovable = true;
      player = game.add.sprite(32, game.world.height - 150, 'dude');
     var ledge = platforms.create(750, 140, 'ground');
@@ -248,7 +249,16 @@ function create() {
     line2.body.collideWorldBounds = true
     line2.body.immovable = true
 
-    linewall = platforms.create(6070, 0, 'ground')
+    linewall = platforms.create(6070, 175, 'ground')
+    linewall.scale.setTo(0.0001, 3.5)
+    linewall.body.immovable = true
+
+    linewall = platforms.create(6690, 175, 'ground')
+    linewall.scale.setTo(0.001, 3.5)
+    linewall.body.immovable = true
+
+    linewall = platforms.create(6070, 300, 'ground')
+    linewall.scale.setTo(1.56, 0.001)
     linewall.body.immovable = true
 
 
@@ -258,6 +268,16 @@ function create() {
     line3.body.collideWorldBounds = true
     line3.body.immovable = true
 
+
+    line4 = platforms.create(6780, 205, 'ground');
+    line4.scale.setTo(0.0001, 4)
+    line4.body.collideWorldBounds = true
+    line4.body.immovable = true
+
+    line4 = platforms.create(7400, 205, 'ground');
+    line4.scale.setTo(0.0001, 4)
+    line4.body.collideWorldBounds = true
+    line4.body.immovable = true
 
 
 
@@ -353,7 +373,7 @@ function update() {
 
     function bouncing(obj1, obj2){
         console.log("this happens")
-        player.body.bounce.set(0.8);
+        player.body.bounce.set(1.5);
     }
 
 
