@@ -43,6 +43,7 @@ h2 {
   .carousel-inner > .item > img,
   .carousel-inner > .item > a > img {
       height: 800px;
+      max-height: 800px;
       width: 100%;
       margin: auto;
   }
