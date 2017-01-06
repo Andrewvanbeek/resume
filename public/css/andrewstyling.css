@@ -1,0 +1,11 @@
+#header {
+  background-image: url(/andrewv.png);
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 200px;
+}
+
+#title {
+  font-family: 'Montserrat', sans-serif;
+  color: white;
+}

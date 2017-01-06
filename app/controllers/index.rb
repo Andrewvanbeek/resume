@@ -1,5 +1,5 @@
 get "/" do
-  erb :positions
+  erb :index
 end
 
 

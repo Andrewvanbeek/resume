@@ -1,0 +1,350 @@
+<html>
+<head>
+  <title></title>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="/js/andrew.js"></script>
+  <script type="text/javascript" src="js/phaser.min.js"></script>
+</head>
+<body>
+<div class="jumbotron" id="header">
+
+</div>
+<div id="game">
+
+<h2>Interactive Resume</h2>
+<script type="text/javascript">
+
+var game = new Phaser.Game(1500, 400, Phaser.CANVAS, "game", { preload: preload, create: create, update: update, render: render });
+var elevator;
+var swiftblocka;
+
+function preload() {
+    game.load.image('sky', 'sky.png');
+    game.load.image('star', 'star.png');
+    game.load.image('since', 'backgroundonev2.png')
+    game.load.spritesheet('dude', 'dude.png', 32, 48);
+    game.load.image('sincesecond', 'backgroundtwov2.png')
+    game.load.image('ground', 'platform.png');
+    game.load.image('rubysprite', 'rubysprite.png')
+    game.load.image('hit', 'hit.png')
+    game.load.image('blocka', 'blocka.png')
+    game.load.image('swiftblock', 'swiftblock.png')
+    game.load.image('blank', 'blank.png')
+    game.load.image('data', 'Data.png')
+    game.load.image('oracle', 'Oracle1.png')
+    game.load.image('oracleblurb', 'oracleblurby.png')
+    game.load.image('accenture', 'accenture.png')
+    game.load.image('cloudsherpas', 'cloudsherpas.png')
+    game.load.image('oracledates', 'oracledates.png')
+    game.load.image('elevatorstart', 'elevatorbegin.png')
+}
+
+var card;
+var cursors;
+
+function create() {
+
+    game.world.setBounds(0, 0, 9500, 350);
+    game.physics.startSystem(Phaser.Physics.ARCADE);
+    resume = game.add.sprite(0, 0, 'since')
+    resume2 = game.add.sprite(4400, 0, 'sincesecond')
+    platforms = game.add.group();
+    platforms.enableBody = true;
+
+
+     emitter = game.add.emitter(4200, 0, 10000, true, true);
+    emitter.makeParticles('data');
+    emitter.width = 400
+    emitter.minParticleScale = 0.1;
+   emitter.maxParticleScale = 0.2;
+    emitter.minParticleSpeed.set(0, 200);
+    emitter.maxParticleSpeed.set(0, 200);
+
+    emitter.setRotation(0, 0);
+    emitter.gravity = 0;
+
+    game.physics.arcade.enable(emitter)
+     emitter.start(false, 2000, 10);
+       emitter2 = game.add.emitter(4600, 0, 10000, true, true);
+    emitter2.makeParticles('data');
+    emitter2.width = 400
+    emitter2.minParticleScale = 0.1;
+   emitter2.maxParticleScale = 0.2;
+    emitter2.minParticleSpeed.set(0, 200);
+    emitter2.maxParticleSpeed.set(0, 200);
+
+    emitter2.setRotation(0, 0);
+    emitter2.gravity = 0;
+     game.physics.arcade.enable(emitter2)
+     emitter2.start(false, 2000, 10);
+
+        emitter3 = game.add.emitter(5000, 0, 10000, true, true);
+    emitter3.makeParticles('data');
+    emitter3.width = 400
+    emitter3.minParticleScale = 0.1;
+   emitter3.maxParticleScale = 0.2;
+    emitter3.minParticleSpeed.set(0, 200);
+    emitter3.maxParticleSpeed.set(0, 200);
+
+    emitter3.setRotation(0, 0);
+    emitter3.gravity = 0;
+
+    game.physics.arcade.enable(emitter3)
+     emitter3.start(false, 2000, 10);
+     var ground = platforms.create(0, game.world.height - 64, 'ground');
+    ground.scale.setTo(22, 2);
+    ground.body.immovable = true;
+     player = game.add.sprite(32, game.world.height - 150, 'dude');
+    var ledge = platforms.create(750, 140, 'ground');
+    ledge.scale.setTo(0.75, 0.01)
+    ledge2 = platforms.create(370, 150, 'ground');
+    ledge2.scale.setTo(0.55, 0.001)
+    ledge.enableBody = true
+    ledge.body.immovable = true
+    ledge2.enableBody = true
+    ledge2.body.immovable = true
+    ledge3 = platforms.create(370, 70, 'ground');
+    ledge3.scale.setTo(0.55, 0.001)
+    ledge3.enableBody = true
+    ledge3.body.immovable = true
+    ledge4 = platforms.create(840, 60, 'ground')
+    ledge4.scale.setTo(0.35, 0.01)
+    ledge4.enableBody = true
+    ledge4.body.immovable = true
+    ledge5 = platforms.create(1130, 85, 'ground')
+    ledge5.scale.setTo(1, 0.001)
+    ledge5.enableBody = true
+    ledge5.body.immovable = true
+    hit = game.add.sprite(1580, 0, 'hit')
+    hit.scale.setTo(0.675, 0.675)
+    ledge6 = platforms.create(2285, 0, 'blocka')
+    ledge6.scale.setTo(0.2, 0.15)
+    ledge6.enableBody = true
+    ledge6.body.immovable = true
+    game.world.sendToBack(ledge6)
+    ledge7 = platforms.create(2285, 225, 'blocka')
+    ledge7.scale.setTo(0.45, 0.15)
+    ledge7.enableBody = true
+    ledge7.body.immovable = true
+    game.world.sendToBack(ledge7)
+
+    ledge8 = platforms.create(2285, 225, 'blocka')
+    ledge8.scale.setTo(3.45, 0.01)
+    ledge8.enableBody = true
+    ledge8.body.immovable = true
+
+    ledge9 = platforms.create(2285, 100, 'ground')
+    ledge9.scale.setTo(4.34, 0.01)
+    ledge9.enableBody = true
+    ledge9.body.immovable = true
+    swiftblock = game.add.sprite(2300, 120, 'swiftblock')
+    swiftblock.scale.setTo(0.21, 0.21)
+    game.physics.arcade.enable(swiftblock);
+    swiftblock.body.gravity.y = 2;
+    swiftblock.body.collideWorldBounds = true
+    game.physics.arcade.enable(hit)
+    game.physics.arcade.enable(player);
+    player.body.bounce.y = 0.1;
+    player.body.gravity.y = 200;
+    player.body.collideWorldBounds = true;
+    player.animations.add('left', [0, 1, 2, 3], 10, true);
+    player.animations.add('right', [5, 6, 7, 8], 10, true);
+    game.camera.follow(player);
+
+    cursors = game.input.keyboard.createCursorKeys();
+    line = platforms.create(805, 80, 'ground');
+    line.scale.setTo(0.5, 0.001)
+    line.body.collideWorldBounds = true
+    line.body.immovable = true
+    line = platforms.create(780, 110, 'ground');
+    line.scale.setTo(0.65, 0.001)
+    line.body.collideWorldBounds = true
+    line.body.immovable = true
+    line = platforms.create(770, 160, 'ground');
+    line.scale.setTo(0.7, 0.001)
+    line.body.collideWorldBounds = true
+    line.body.immovable = true
+    line = platforms.create(810, 190, 'ground');
+    line.scale.setTo(0.5, 0.001)
+    line.body.collideWorldBounds = true
+    line.body.immovable = true
+    line = platforms.create(835, 220, 'ground');
+    line.scale.setTo(0.4, 0.001)
+    line.body.collideWorldBounds = true
+    line.body.immovable = true
+    line = platforms.create(865, 250, 'ground');
+    line.scale.setTo(0.25, 0.001)
+    line.body.collideWorldBounds = true
+    line.body.immovable = true
+    line = platforms.create(890, 280, 'ground');
+    line.scale.setTo(0.1, 0.001)
+    line.body.collideWorldBounds = true
+    line.body.immovable = true
+
+    line2 = game.add.sprite(6070, 170, 'ground');
+    line2.scale.setTo(1.56, 0.1)
+    game.physics.arcade.enable(line2)
+    line2.body.collideWorldBounds = true
+    line2.body.immovable = true
+
+    linewall = platforms.create(6070, 0, 'ground')
+    linewall.body.immovable = true
+
+
+    line3 = game.add.sprite(6780, 205, 'ground');
+    line3.scale.setTo(1.56, 0.001)
+    game.physics.arcade.enable(line3)
+    line3.body.collideWorldBounds = true
+    line3.body.immovable = true
+
+
+
+
+}
+
+
+
+
+function update() {
+    var x = 0
+    var fireBallhit = game.physics.arcade.collide(player, emitter, particleBurst, null, this)
+
+
+    var hitPlatform = game.physics.arcade.collide(player, platforms, nobounce, null, this);
+    var hitblock = game.physics.arcade.collide(player, hit)
+    var blockTouchDown = game.physics.arcade.collide(swiftblock, platforms, blocker, null, this)
+    var blockpush = game.physics.arcade.collide(player, swiftblock, blockpush, null, this)
+    var lineblock = game.physics.arcade.collide(player, platforms);
+    var bounce = game.physics.arcade.collide(player, line2, bouncing, null, this)
+    var bounce2 = game.physics.arcade.collide(player, line3, bouncing, null, this)
+    if(player.body.x > 8950){
+    game.world.setBounds(0, 0, 9500, 3000);
+    oracleblurb = game.add.sprite(8000, 1000,'oracleblurb')
+    game.world.sendToBack(oracleblurb)
+    sherpasblurb = game.add.sprite(8000, 1600, 'cloudsherpas')
+    game.world.sendToBack(sherpasblurb)
+    accentureblurb = game.add.sprite(8000, 2200, 'accenture')
+    game.world.sendToBack(accentureblurb)
+    swiftblocka = game.add.sprite(8890, 1140, 'elevatorstart')
+    swiftblocka.scale.setTo(0.21, 0.21)
+    game.world.sendToBack(swiftblocka)
+    var oracledatesplatform = game.add.sprite(9025, 1200, 'oracledates');
+    oracledatesplatform.scale.setTo(1.4, 1.4)
+    game.world.sendToBack(oracledatesplatform)
+
+    var elevator = platforms.create(8000, 1200, 'ground')
+    elevator.scale.setTo(20, 0.001)
+    game.physics.arcade.enable(elevator)
+    elevator.body.collideWorldBounds = true
+
+}
+    var platformone = game.physics.arcade.collide(player, elevator)
+
+ player.body.velocity.x = 0;
+   if (swiftblock.body.x > 4000) {
+            swiftblock.destroy()
+        }
+
+
+     if(cursors.left.isDown){
+        player.body.velocity.x = -550;
+        player.animations.play('left');
+     }
+     else if (cursors.right.isDown)
+    {
+        //  Move to the right
+        player.body.velocity.x = 550;
+
+        player.animations.play('right');
+    }
+     else
+    {
+        //  Stand still
+        player.animations.stop();
+
+        player.frame = 4;
+    }
+    if (cursors.up.isDown && player.body.touching.down && hitPlatform || bounce || bounce2)
+    {
+        player.body.velocity.y = -350;
+    }
+
+    function blocker(obj1, obj2) {
+    swiftblock.body.gravity = 0
+    swiftblock.body.immovable = true
+}
+
+    function blockpush(obj1, obj2) {
+        game.physics.arcade.enable(swiftblock)
+        swiftblock.body.gravity.y = 200
+        if (cursors.right.isDown){
+            game.physics.arcade.collide(player, swiftblock)
+            swiftblock.body.immovable = false
+            swiftblock.body.velocity.x = 200
+        }
+
+    }
+
+    function particleBurst(obj1, obj2) {
+
+
+}
+
+    function bouncing(obj1, obj2){
+        console.log("this happens")
+        player.body.bounce.set(0.8);
+    }
+
+
+
+    function nobounce(obj1, obj2){
+        player.body.bounce.set(0.0)
+    }
+
+
+
+if(player.body.x > 4000 && player.body.x < 4500) {
+    emitter.on = false
+}
+
+else if(player.body.x > 4400 && player.body.x < 4800){
+    emitter.on = true
+    emitter2.on = false
+}
+
+else if (player.body.x > 4700 && player.body.x < 5200) {
+    emitter2.on = true
+    emitter3.on = false
+}
+
+else {
+emitter3.on = true
+
+}
+
+
+
+if (player.body.x > 8000){
+    player.tint = 239900
+
+}
+
+
+}
+
+function render() {
+
+    // game.debug.cameraInfo(game.camera, 500, 32);
+    // game.debug.spriteCoords(player, 32, 32);
+
+}
+
+
+</script>
+
+</div>
+
+
+</body>
+</html>
+
