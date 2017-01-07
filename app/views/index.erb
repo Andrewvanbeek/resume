@@ -9,7 +9,7 @@
 <div class="jumbotron" id="header">
 
 </div>
-<div class="info"><center><br><p style="color: white">Contact: Phone => 916-281-7719, Email => andrevanbeek90@gmail.com, <a href="https://www.linkedin.com/in/andrewryanvanbeek">Linkedin</a></p></center>
+<div class="info"><center><br><p style="color: white">Contact: Phone => 916-281-7719, Email => andrevanbeek90@gmail.com, <a href="https://www.linkedin.com/in/andrewryanvanbeek"> Linkedin</a></p></center>
 <div>
    <div id="myCarousel" class="carousel slide" data-ride="carousel">
   <!-- Indicators -->
@@ -99,6 +99,7 @@ function preload() {
     game.load.image('oracledates', 'oracledates.png')
     game.load.image('elevatorstart', 'elevatorbegin.png')
     game.load.image('level', 'blackbar.png')
+    game.load.script('webfont', '//ajax.googleapis.com/ajax/libs/webfont/1.4.7/webfont.js');
 }
 
 var card;
@@ -281,6 +282,7 @@ function create() {
 
 
 
+
 }
 
 
@@ -289,7 +291,6 @@ function create() {
 function update() {
     var x = 0
     var fireBallhit = game.physics.arcade.collide(player, emitter, particleBurst, null, this)
-
 
     var hitPlatform = game.physics.arcade.collide(player, platforms, nobounce, null, this);
     var hitblock = game.physics.arcade.collide(player, hit)
@@ -304,19 +305,19 @@ function update() {
     game.world.sendToBack(oracleblurb)
     sherpasblurb = game.add.sprite(8000, 1600, 'cloudsherpas')
     game.world.sendToBack(sherpasblurb)
+    text = game.add.text(9025, 1750, "July 2015 - Dec 2015", { fontSize: '12px', fill: 'orange'});
     accentureblurb = game.add.sprite(8000, 2200, 'accenture')
     game.world.sendToBack(accentureblurb)
+    text = game.add.text(9025, 2350, "Dec 2015 - Oct 2016", { fontSize: '12px', fill: 'blue'});
+    text = game.add.text(7000, 2650, "For more information on me please check my linkedin above!  Or email me at andrewvanbeek90@gmail.com.", { fontSize: '12px', fill: 'green'});
     swiftblocka = game.add.sprite(8890, 1140, 'elevatorstart')
     swiftblocka.scale.setTo(0.21, 0.21)
     game.world.sendToBack(swiftblocka)
-    var oracledatesplatform = game.add.sprite(9025, 1200, 'oracledates');
-    oracledatesplatform.scale.setTo(1.4, 1.4)
-    game.world.sendToBack(oracledatesplatform)
-
+    text = game.add.text(9025, 1200, "July 2013 - July 2015", { fontSize: '12px', fill: 'red'});
     var elevator = platforms.create(8000, 1200, 'ground')
     elevator.scale.setTo(20, 0.001)
     game.physics.arcade.enable(elevator)
-    elevator.body.collideWorldBounds = true
+
 
 }
     var platformone = game.physics.arcade.collide(player, elevator)
