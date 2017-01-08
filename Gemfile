@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-# PostgreSQL driver!
+# PostgreSQL driver
 gem 'pg'
 
 # Sinatra driver
